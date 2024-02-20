@@ -61,7 +61,7 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                       pageTitle(title: "Hot News"),
                       defaultCarousel(),
                       defaultSeparator(),
-                      pageTitle(title: "Only For You"),
+                      pageTitle(title: "Explore By Category"),
                       categoriesTabBar(
                           tabController: _tabController,
                           tabItemsList: tabItemsList),
