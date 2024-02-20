@@ -33,7 +33,7 @@ class BottomNavCubit extends Cubit<AppStates> {
     ),
   ];
 
-  late List<Widget> appScreens=[const NewsScreen(),const NewsScreen(),const NewsScreen(),const NewsScreen(),];
+  late List<Widget> appScreens=[NewsScreen(),NewsScreen(),NewsScreen(),NewsScreen(),];
 
   //Cubit methods
   void changeNavBar(index){

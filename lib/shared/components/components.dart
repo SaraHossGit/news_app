@@ -1,5 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+Widget defaultSeparator() => Padding(
+  padding: const EdgeInsets.symmetric(vertical: 10),
+  child: Container(
+    width: double.infinity,
+    height: 1,
+    color: Colors.grey[300],
+  ),
+);
+
+Widget carouselItem() =>Builder(
+  builder: (BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Image
+          Image.network(
+            "https://img.apmcdn.org/a91999e158c12fbfc169361abc9e24c8f0373785/widescreen/5d1f8d-20240218-people-around-a-vigil-outside-a-city-hall-2000.jpg",
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          // Source and date
+          Align(
+              alignment: Alignment(-0.9, 0.3),
+              child: Text(
+                "MPR News Staff",
+                style: TextStyle(color: Colors.white),
+              )),
+          // Title
+          Align(
+              alignment: Alignment(-0.8, 0.8),
+              child: Container(
+                width: 200,
+                child: Text(
+                  "Hundreds gather for vigil after 2 police officers, paramedic killed in Burnsville - MPR News",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+        ],
+      ),
+    );
+  },
+);
 
 Widget customNavBar({
   required List<GButton> bottomNavItemsList,
@@ -82,3 +128,13 @@ Widget defaultNewsTile({
     ],
   ),
 );
+
+Widget newsList(articlesList) =>ListView.separated(
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) => defaultNewsTile(
+      articlesList: articlesList,
+      index: index,
+    ),
+    separatorBuilder: (context, index) =>
+        SizedBox(height: 10),
+    itemCount: 10);
