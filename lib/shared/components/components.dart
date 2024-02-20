@@ -12,6 +12,27 @@ Widget defaultSeparator() => Padding(
       ),
     );
 
+Widget defaultSearchBar()=>TextFormField(
+  decoration: InputDecoration(
+    label: Text("Search"),
+    contentPadding: EdgeInsets.all(20),
+    hintText: "Search News...",
+    floatingLabelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+    suffixIcon: Icon(Icons.search),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.white, width: 2.0),
+      borderRadius: BorderRadius.circular(25),
+    ),
+
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.white, width: 2.0),
+      borderRadius: BorderRadius.circular(25),
+    ),
+    filled: true,
+    fillColor: Colors.white,
+  ),
+);
+
 Widget customNavBar({
   required List<GButton> bottomNavItemsList,
   required var bottomNavCubit,

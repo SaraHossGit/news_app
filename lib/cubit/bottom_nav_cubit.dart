@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/modules/news_screen.dart';
+import 'package:news_app/modules/search_screen.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/components/constants.dart';
 
@@ -33,7 +34,7 @@ class BottomNavCubit extends Cubit<AppStates> {
     ),
   ];
 
-  late List<Widget> appScreens=[NewsScreen(),NewsScreen(),NewsScreen(),NewsScreen(),];
+  late List<Widget> appScreens=[NewsScreen(),SearchScreen(),NewsScreen(),NewsScreen(),];
 
   //Cubit methods
   void changeNavBar(index){
