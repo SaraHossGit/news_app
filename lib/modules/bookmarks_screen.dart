@@ -5,9 +5,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class BookmarksScreen extends StatelessWidget {
-  BookmarksScreen({super.key});
-
-  bool isSearching = false;
+  const BookmarksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +18,7 @@ class BookmarksScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Image
                 Stack(
                   children: [
                     ClipRRect(
@@ -27,7 +26,7 @@ class BookmarksScreen extends StatelessWidget {
                       child: Image.network(
                           "https://getwallpapers.com/wallpaper/full/2/7/5/1343576-free-black-and-white-newspaper-wallpaper-2048x1365-hd-for-mobile.jpg"),
                     ),
-                    Positioned.fill(
+                    const Positioned.fill(
                       child: Align(
                         alignment: Alignment(-0.6,0.9),
                         child: Text(
@@ -38,7 +37,8 @@ class BookmarksScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
+                // News List
                 Expanded(
                     child: newsList(
                   newsCubit.categorizedNewsList,

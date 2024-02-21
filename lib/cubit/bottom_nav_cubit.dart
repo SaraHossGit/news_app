@@ -6,8 +6,6 @@ import 'package:news_app/modules/bookmarks_screen.dart';
 import 'package:news_app/modules/news_screen.dart';
 import 'package:news_app/modules/search_screen.dart';
 import 'package:news_app/modules/settings_screen.dart';
-import 'package:news_app/network/remote/dio_helper.dart';
-import 'package:news_app/shared/components/constants.dart';
 
 class BottomNavCubit extends Cubit<AppStates> {
   BottomNavCubit() : super(InitState());

@@ -5,7 +5,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,19 +13,17 @@ class SearchScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
-          return newsCubit.isSearching
-              ? Center(child: CircularProgressIndicator())
-              : Container(
+          return Container(
                 color: Colors.grey[200],
             padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
                     defaultSearchBar(),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     // News List
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                           color:Colors.white,
                         borderRadius: BorderRadius.circular(25),
@@ -33,11 +31,11 @@ class SearchScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Found ${newsCubit.searchNewsList.length} results", style: TextStyle(
+                              Text("Found ${newsCubit.searchNewsList.length} results", style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               Expanded(child: newsList(newsCubit.searchNewsList,))
                             ],
                           )),

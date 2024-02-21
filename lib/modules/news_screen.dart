@@ -5,7 +5,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class NewsScreen extends StatefulWidget {
-  NewsScreen({super.key});
+  const NewsScreen({super.key});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();
@@ -55,7 +55,7 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                           cubit: newsCubit,
                           tabController: _tabController,
                           tabItemsList: tabItemsList),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       categoriesTabView(
                           tabController: _tabController,
                           articlesList: newsCubit.categorizedNewsList,
