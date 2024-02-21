@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
+import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -67,7 +68,6 @@ class _HomeLayoutState extends State<HomeLayout> {
                     setState(() {
                       ThemeCubit().get(context).changeThemeMode();
                     });
-                    print(value);
                   },
                   activeColor: Colors.white,
                   inactiveThumbColor: Colors.black,

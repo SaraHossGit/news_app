@@ -5,28 +5,31 @@ import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/layouts/home_layout.dart';
+import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:news_app/shared/style/colors.dart';
 import 'package:news_app/shared/style/themes.dart';
 
 import 'shared/bloc_observer.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
+  bool? isDark=CacheHelper.getData(key: "isDark");
   DioHelper.init();
-  runApp(const MyApp());
+  runApp(MyApp(isDark: isDark,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool? isDark;
+  MyApp({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ThemeCubit(),
+          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: isDark),
         ),
         BlocProvider(
           create: (context) => BottomNavCubit(),
