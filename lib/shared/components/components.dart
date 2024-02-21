@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -12,26 +14,26 @@ Widget defaultSeparator() => Padding(
       ),
     );
 
-Widget defaultSearchBar()=>TextFormField(
-  decoration: InputDecoration(
-    label: Text("Search"),
-    contentPadding: EdgeInsets.all(20),
-    hintText: "Search News...",
-    floatingLabelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-    suffixIcon: Icon(Icons.search),
-    enabledBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.white, width: 2.0),
-      borderRadius: BorderRadius.circular(25),
-    ),
-
-    focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.white, width: 2.0),
-      borderRadius: BorderRadius.circular(25),
-    ),
-    filled: true,
-    fillColor: Colors.white,
-  ),
-);
+Widget defaultSearchBar() => TextFormField(
+      decoration: InputDecoration(
+        label: Text("Search"),
+        contentPadding: EdgeInsets.all(20),
+        hintText: "Search News...",
+        floatingLabelStyle:
+            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        suffixIcon: Icon(Icons.search),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white, width: 2.0),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white, width: 2.0),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+    );
 
 Widget customNavBar({
   required List<GButton> bottomNavItemsList,
@@ -68,7 +70,11 @@ Widget customNavBar({
       },
     );
 
-Widget pageTitle({required String title}) => Padding(
+Widget pageTitle({
+  required String title,
+  required VoidCallback onTap,
+}) =>
+    Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,9 +83,12 @@ Widget pageTitle({required String title}) => Padding(
             title,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          Text(
-            "See all",
-            style: TextStyle(color: Colors.blue),
+          GestureDetector(
+            child: Text(
+              "See all",
+              style: TextStyle(color: Colors.blue),
+            ),
+            onTap: onTap,
           ),
         ],
       ),
@@ -161,75 +170,81 @@ Widget defaultCarousel(newsList) => CarouselSlider(
       items: carouselItemBuilder(newsList),
     );
 
-List<Widget> carouselItemBuilder(newsList){
-  List<Widget> itemsList=[];
-  for (int i=0; i<newsList.length;i++){
+List<Widget> carouselItemBuilder(newsList) {
+  List<Widget> itemsList = [];
+  for (int i = 0; i < newsList.length; i++) {
     // Don't add news items with no images
-    if (newsList[i]["urlToImage"]!=null){
-      itemsList.add (carouselItem(newsList[i]));
+    if (newsList[i]["urlToImage"] != null) {
+      itemsList.add(carouselItem(newsList[i]));
     }
   }
   return itemsList;
 }
 
 Widget carouselItem(newsItem) => Builder(
-  builder: (BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          // Image
-          Image.network(
-            newsItem["urlToImage"],
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          // Background to Title
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 75,
-              decoration: BoxDecoration(
-              boxShadow: [BoxShadow(
-                  color: Colors.black.withOpacity(0.6),                              /// Offset from the container
-                  blurRadius: 10,                                        /// Blur radius
-                  spreadRadius: 5,                                  /// Spread radius
-                )],
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Image
+              Image.network(
+                newsItem["urlToImage"],
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              // Background to Title
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    height: 75,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.6),
 
-              )),
+                          /// Offset from the container
+                          blurRadius: 10,
+
+                          /// Blur radius
+                          spreadRadius: 5,
+
+                          /// Spread radius
+                        )
+                      ],
+                    )),
+              ),
+              // Source
+              Align(
+                  alignment: Alignment(-0.8, 0.3),
+                  child: Container(
+                    width: 200,
+                    child: Text(
+                      newsItem["author"] ?? "Unknown",
+                      style: TextStyle(color: Colors.white),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )),
+              // Title
+              Align(
+                  alignment: Alignment(-0.8, 0.8),
+                  child: Container(
+                    width: 200,
+                    child: Text(
+                      newsItem["title"],
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )),
+            ],
           ),
-          // Source
-          Align(
-              alignment: Alignment(-0.8, 0.3),
-              child: Container(
-                width: 200,
-                child: Text(
-                  newsItem["author"]??"Unknown",
-                  style: TextStyle(
-                      color: Colors.white),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )),
-          // Title
-          Align(
-              alignment: Alignment(-0.8, 0.8),
-              child: Container(
-                width: 200,
-                child: Text(
-                  newsItem["title"],
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )),
-        ],
-      ),
+        );
+      },
     );
-  },
-);
 
 /// TabBar and TabView
 Widget categoriesTabBar({
