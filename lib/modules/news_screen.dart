@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/news_cubit.dart';
@@ -23,7 +22,6 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
     "Sports",
     "Technology"
   ];
-  List<dynamic> tabScreensList = [];
 
   @override
   void initState() {
@@ -43,32 +41,25 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
         listener: (context, state) {},
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
-          tabScreensList = [
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList,
-            newsCubit.businessNewsList
-          ];
-          return newsCubit.businessNewsList.isEmpty
-              ? Center(child: CircularProgressIndicator())
+          return newsCubit.trendingNewsList.isEmpty
+              ? const Center(child: CircularProgressIndicator())
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      pageTitle(title: "Hot News", onTap: (){}),
+                      pageTitle(title: "Hot News", onTap: () {}),
                       defaultCarousel(newsCubit.trendingNewsList),
                       defaultSeparator(),
-                      pageTitle(title: "Explore By Category", onTap: (){}),
+                      pageTitle(title: "Explore By Category", onTap: () {}),
                       categoriesTabBar(
+                          cubit: newsCubit,
                           tabController: _tabController,
                           tabItemsList: tabItemsList),
                       SizedBox(height: 10),
                       categoriesTabView(
                           tabController: _tabController,
-                          tabScreensList: tabScreensList),
+                          articlesList: newsCubit.categorizedNewsList,
+                          tabItemsList: tabItemsList),
                     ],
                   ),
                 );

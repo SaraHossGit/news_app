@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:news_app/cubit/news_cubit.dart';
 
 /// General
 Widget defaultSeparator() => Padding(
@@ -111,8 +112,8 @@ Widget defaultNewsTile({
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              // "${articlesList[index]["urlToImage"]}",
-              "https://cdn.dribbble.com/users/1726280/screenshots/15941964/media/8eec78bc3bd95b2bd1fe260b36ab5188.jpg",
+              articlesList[index]["urlToImage"] ??
+                  "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
               fit: BoxFit.cover,
               height: 80,
               width: 80,
@@ -136,13 +137,15 @@ Widget defaultNewsTile({
                     children: [
                       Expanded(
                         child: Text(
-                          "${articlesList[index]["author"]}",
+                          articlesList[index]["author"] ?? "Unknown",
                           style: TextStyle(color: Colors.grey[500]),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(
-                        "${articlesList[index]["publishedAt"].toString().substring(0, 10)}",
+                        articlesList[index]["publishedAt"]
+                            .toString()
+                            .substring(0, 10),
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ],
@@ -250,10 +253,14 @@ Widget carouselItem(newsItem) => Builder(
 Widget categoriesTabBar({
   required TabController? tabController,
   required List<dynamic> tabItemsList,
+  required NewsCubit cubit,
 }) =>
     Container(
       height: 40,
       child: TabBar(
+          onTap: (int selectedIndex) {
+            cubit.getCategoriesNews(selectedIndex);
+          },
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
           dividerHeight: 0,
@@ -267,13 +274,14 @@ Widget categoriesTabBar({
 
 Widget categoriesTabView({
   required TabController? tabController,
-  required List<dynamic> tabScreensList,
+  required List<dynamic> articlesList,
+  required List<dynamic> tabItemsList,
 }) =>
     Expanded(
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: buildTabPages(tabScreensList),
+        children: buildTabPages(articlesList: articlesList,tabItemsList: tabItemsList),
       ),
     );
 
@@ -289,10 +297,10 @@ List<Widget> buildTabItems(tabItemsList) {
   return tabItems;
 }
 
-List<Widget> buildTabPages(tabScreensList) {
+List<Widget> buildTabPages({required List<dynamic> articlesList, required List<dynamic> tabItemsList}) {
   List<Widget> tabScreens = [];
-  for (int i = 0; i < tabScreensList.length; i++) {
-    tabScreens.add(newsList(tabScreensList[0]));
+  for (int i = 0; i < tabItemsList.length; i++) {
+    tabScreens.add(newsList(articlesList));
   }
   return tabScreens;
 }

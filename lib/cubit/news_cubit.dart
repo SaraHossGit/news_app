@@ -10,8 +10,20 @@ class NewsCubit extends Cubit<AppStates> {
   NewsCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
+  String country="us";
+  List<String> categoriesList = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology"
+  ];
   List<dynamic> trendingNewsList=[];
-  List<dynamic> businessNewsList=[];
+  List<dynamic> categorizedNewsList=[];
+  List<dynamic> searchNewsList=[];
+  int searchResults=0;
 
   //Cubit methods
 
@@ -20,7 +32,7 @@ class NewsCubit extends Cubit<AppStates> {
     DioHelper.getData(
       option: "/top-headlines",
       query: {
-        "country":"us",
+        "country":country,
         "apiKey":apiKey,
       },
     ).then((value){
@@ -32,22 +44,22 @@ class NewsCubit extends Cubit<AppStates> {
     });
   }
 
-  void getBusinessNews(){
-    emit(BusinessNewsLoadingState());
+  void getCategoriesNews(selectedIndex){
+    emit(CategorizedNewsLoadingState());
     DioHelper.getData(
         option: "/top-headlines",
         query: {
-          "country":"eg",
-          "category": "business",
+          "country":country,
+          "category": categoriesList[selectedIndex],
           "apiKey":apiKey,
         },
     ).then((value){
       print(value.data["articles"][0]["author"]);
-      businessNewsList=value.data["articles"];
-      emit(BusinessNewsSuccessState());
+      categorizedNewsList=value.data["articles"];
+      emit(CategorizedNewsSuccessState());
     }).catchError((error){
-      print("Error in getting Business News ${error.toString()}");
-      emit(BusinessNewsErrorState());
+      print("Error in getting Categorized News ${error.toString()}");
+      emit(CategorizedNewsErrorState());
     });
   }
 

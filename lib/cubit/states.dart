@@ -6,6 +6,6 @@ class TrendingNewsLoadingState extends AppStates{}
 class TrendingNewsSuccessState extends AppStates{}
 class TrendingNewsErrorState extends AppStates{}
 
-class BusinessNewsLoadingState extends AppStates{}
-class BusinessNewsSuccessState extends AppStates{}
-class BusinessNewsErrorState extends AppStates{}
+class CategorizedNewsLoadingState extends AppStates{}
+class CategorizedNewsSuccessState extends AppStates{}
+class CategorizedNewsErrorState extends AppStates{}

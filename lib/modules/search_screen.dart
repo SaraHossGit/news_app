@@ -34,12 +34,12 @@ class SearchScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Found ${newsCubit.businessNewsList.length} results", style: TextStyle(
+                              Text("Found ${newsCubit.categorizedNewsList.length} results", style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),),
                               SizedBox(height: 15),
-                              Expanded(child: newsList(newsCubit.businessNewsList,))
+                              Expanded(child: newsList(newsCubit.categorizedNewsList,))
                             ],
                           )),
                     ),
