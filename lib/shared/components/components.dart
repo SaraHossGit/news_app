@@ -158,14 +158,22 @@ Widget defaultNewsTile({
       ),
     );
 
-Widget newsList(articlesList) => ListView.separated(
-    physics: BouncingScrollPhysics(),
-    itemBuilder: (context, index) => defaultNewsTile(
+Widget newsList(articlesList, {isSearching=false}) {
+  if (!articlesList.isEmpty){
+    return ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) => defaultNewsTile(
           articlesList: articlesList,
           index: index,
         ),
-    separatorBuilder: (context, index) => SizedBox(height: 10),
-    itemCount: 10);
+        separatorBuilder: (context, index) => SizedBox(height: 10),
+        itemCount: 10);
+  }
+  else if (!isSearching && articlesList.isEmpty){
+    return Center(child: Container(child: Text("No Results Found"),));
+  }
+  return Center(child: CircularProgressIndicator(),);
+}
 
 /// Carousel
 Widget defaultCarousel(newsList) => CarouselSlider(

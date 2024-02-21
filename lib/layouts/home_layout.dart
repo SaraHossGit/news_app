@@ -28,6 +28,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         builder: (context, state) {
           BottomNavCubit bottomNavCubit = BottomNavCubit().get(context);
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               // Profile Pic
               leading: Row(

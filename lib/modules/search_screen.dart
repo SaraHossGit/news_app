@@ -6,7 +6,6 @@ import 'package:news_app/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
-  bool isSearching=false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class SearchScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
-          return isSearching
+          return newsCubit.isSearching
               ? Center(child: CircularProgressIndicator())
               : Container(
                 color: Colors.grey[200],
@@ -34,12 +33,12 @@ class SearchScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Found ${newsCubit.categorizedNewsList.length} results", style: TextStyle(
+                              Text("Found ${newsCubit.searchNewsList.length} results", style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),),
                               SizedBox(height: 15),
-                              Expanded(child: newsList(newsCubit.categorizedNewsList,))
+                              Expanded(child: newsList(newsCubit.searchNewsList,))
                             ],
                           )),
                     ),

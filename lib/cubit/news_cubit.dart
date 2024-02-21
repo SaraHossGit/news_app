@@ -24,6 +24,7 @@ class NewsCubit extends Cubit<AppStates> {
   List<dynamic> categorizedNewsList=[];
   List<dynamic> searchNewsList=[];
   int searchResults=0;
+  bool isSearching=false;
 
   //Cubit methods
 
