@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
+import 'package:news_app/modules/news_webview.dart';
 
 /// General
 Widget defaultSeparator() => Padding(
@@ -104,61 +105,64 @@ Widget defaultNewsTile({
   required List<dynamic> articlesList,
   required int index,
 }) =>
-    Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.withOpacity(0.3)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              articlesList[index]["urlToImage"] ??
-                  "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
-              fit: BoxFit.cover,
-              height: 80,
-              width: 80,
-            ),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${articlesList[index]["title"]}",
-                    style: Theme.of(context).textTheme.labelLarge,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          articlesList[index]["author"] ?? "Unknown",
-                          style: TextStyle(color: Colors.grey[500]),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Text(
-                        articlesList[index]["publishedAt"]
-                            .toString()
-                            .substring(0, 10),
-                        style: TextStyle(color: Colors.grey[500]),
-                      ),
-                    ],
-                  ),
-                ],
+    InkWell(
+      onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsWebview(newsLink: articlesList[index]["url"]))),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                articlesList[index]["urlToImage"] ??
+                    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+                fit: BoxFit.cover,
+                height: 80,
+                width: 80,
               ),
             ),
-          ),
-        ],
+            SizedBox(width: 10),
+            Expanded(
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${articlesList[index]["title"]}",
+                      style: Theme.of(context).textTheme.labelLarge,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            articlesList[index]["author"] ?? "Unknown",
+                            style: TextStyle(color: Colors.grey[500]),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          articlesList[index]["publishedAt"]
+                              .toString()
+                              .substring(0, 10),
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
 
