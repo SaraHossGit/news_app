@@ -37,9 +37,12 @@ darkThemeData() => ThemeData(
         indicatorColor: Colors.white,
         tabAlignment: TabAlignment.center,
       ),
+  iconTheme: IconThemeData(color: Colors.white),
   textTheme: TextTheme(
+    headlineLarge:TextStyle(color: Colors.white),
     labelLarge: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(color: Colors.white),
     titleLarge: TextStyle(color: Colors.white),
   )
     );
