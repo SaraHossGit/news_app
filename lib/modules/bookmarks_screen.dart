@@ -16,7 +16,7 @@ class BookmarksScreen extends StatelessWidget {
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(top: 16.0,left: 16.0,right: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

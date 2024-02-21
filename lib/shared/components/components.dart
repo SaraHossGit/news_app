@@ -172,7 +172,7 @@ Widget newsList(articlesList, {isSearching=false}) {
           context: context
         ),
         separatorBuilder: (context, index) => SizedBox(height: 10),
-        itemCount: 10);
+        itemCount: articlesList.length);
   }
   else if (!isSearching && articlesList.isEmpty){
     return Center(child: Container(child: Text("No Results Found"),));

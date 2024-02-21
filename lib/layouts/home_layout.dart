@@ -86,8 +86,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 10),
+                      padding: const EdgeInsets.all(16),
                       child: customNavBar(
                           bottomNavItemsList: bottomNavCubit.bottomNavItemsList,
                           bottomNavCubit: bottomNavCubit,
