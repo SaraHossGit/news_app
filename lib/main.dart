@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomNavCubit(),
         ),
         BlocProvider(
-          create: (context) => NewsCubit()..getBusinessNews(),
+          create: (context) => NewsCubit()..getBusinessNews()..getTrendingNews(),
         ),
       ],
       child: MaterialApp(

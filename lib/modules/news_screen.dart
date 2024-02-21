@@ -44,22 +44,22 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
           tabScreensList = [
-            newsCubit.businessNewList,
-            newsCubit.businessNewList,
-            newsCubit.businessNewList,
-            newsCubit.businessNewList,
-            newsCubit.businessNewList,
-            newsCubit.businessNewList,
-            newsCubit.businessNewList
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList,
+            newsCubit.businessNewsList
           ];
-          return newsCubit.businessNewList.isEmpty
+          return newsCubit.businessNewsList.isEmpty
               ? Center(child: CircularProgressIndicator())
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
                       pageTitle(title: "Hot News"),
-                      defaultCarousel(),
+                      defaultCarousel(newsCubit.trendingNewsList),
                       defaultSeparator(),
                       pageTitle(title: "Explore By Category"),
                       categoriesTabBar(

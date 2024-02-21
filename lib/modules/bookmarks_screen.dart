@@ -41,7 +41,7 @@ class BookmarksScreen extends StatelessWidget {
                 SizedBox(height: 15),
                 Expanded(
                     child: newsList(
-                  newsCubit.businessNewList,
+                  newsCubit.businessNewsList,
                 ))
               ],
             ),

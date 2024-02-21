@@ -156,51 +156,80 @@ Widget newsList(articlesList) => ListView.separated(
     itemCount: 10);
 
 /// Carousel
-Widget carouselItem() => Builder(
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Image
-              Image.network(
-                "https://img.apmcdn.org/a91999e158c12fbfc169361abc9e24c8f0373785/widescreen/5d1f8d-20240218-people-around-a-vigil-outside-a-city-hall-2000.jpg",
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              // Source and date
-              Align(
-                  alignment: Alignment(-0.9, 0.3),
-                  child: Text(
-                    "MPR News Staff",
-                    style: TextStyle(color: Colors.white),
-                  )),
-              // Title
-              Align(
-                  alignment: Alignment(-0.8, 0.8),
-                  child: Container(
-                    width: 200,
-                    child: Text(
-                      "Hundreds gather for vigil after 2 police officers, paramedic killed in Burnsville - MPR News",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )),
-            ],
-          ),
-        );
-      },
+Widget defaultCarousel(newsList) => CarouselSlider(
+      options: CarouselOptions(height: 200.0),
+      items: carouselItemBuilder(newsList),
     );
 
-Widget defaultCarousel() => CarouselSlider(
-      options: CarouselOptions(height: 200.0),
-      items: [1, 2, 3].map((i) {
-        return carouselItem();
-      }).toList(),
+List<Widget> carouselItemBuilder(newsList){
+  List<Widget> itemsList=[];
+  for (int i=0; i<newsList.length;i++){
+    // Don't add news items with no images
+    if (newsList[i]["urlToImage"]!=null){
+      itemsList.add (carouselItem(newsList[i]));
+    }
+  }
+  return itemsList;
+}
+
+Widget carouselItem(newsItem) => Builder(
+  builder: (BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Image
+          Image.network(
+            newsItem["urlToImage"],
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          // Background to Title
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 75,
+              decoration: BoxDecoration(
+              boxShadow: [BoxShadow(
+                  color: Colors.black.withOpacity(0.6),                              /// Offset from the container
+                  blurRadius: 10,                                        /// Blur radius
+                  spreadRadius: 5,                                  /// Spread radius
+                )],
+
+              )),
+          ),
+          // Source
+          Align(
+              alignment: Alignment(-0.8, 0.3),
+              child: Container(
+                width: 200,
+                child: Text(
+                  newsItem["author"]??"Unknown",
+                  style: TextStyle(
+                      color: Colors.white),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+          // Title
+          Align(
+              alignment: Alignment(-0.8, 0.8),
+              child: Container(
+                width: 200,
+                child: Text(
+                  newsItem["title"],
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+        ],
+      ),
     );
+  },
+);
 
 /// TabBar and TabView
 Widget categoriesTabBar({

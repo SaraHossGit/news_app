@@ -10,14 +10,32 @@ class NewsCubit extends Cubit<AppStates> {
   NewsCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
-  List<dynamic> businessNewList=[];
+  List<dynamic> trendingNewsList=[];
+  List<dynamic> businessNewsList=[];
 
   //Cubit methods
+
+  void getTrendingNews(){
+    emit(TrendingNewsLoadingState());
+    DioHelper.getData(
+      option: "/top-headlines",
+      query: {
+        "country":"us",
+        "apiKey":apiKey,
+      },
+    ).then((value){
+      trendingNewsList=value.data["articles"];
+      emit(TrendingNewsSuccessState());
+    }).catchError((error){
+      print("Error in getting Business News ${error.toString()}");
+      emit(TrendingNewsErrorState());
+    });
+  }
 
   void getBusinessNews(){
     emit(BusinessNewsLoadingState());
     DioHelper.getData(
-        url: "v2/top-headlines/",
+        option: "/top-headlines",
         query: {
           "country":"eg",
           "category": "business",
@@ -25,13 +43,15 @@ class NewsCubit extends Cubit<AppStates> {
         },
     ).then((value){
       print(value.data["articles"][0]["author"]);
-      businessNewList=value.data["articles"];
+      businessNewsList=value.data["articles"];
       emit(BusinessNewsSuccessState());
     }).catchError((error){
       print("Error in getting Business News ${error.toString()}");
       emit(BusinessNewsErrorState());
     });
   }
+
+
 }
 
 //https://newsapi.org/v2/top-headlines?country=eg&category=business&apiKey=96441a138a154921875a803ef7c5cf03
