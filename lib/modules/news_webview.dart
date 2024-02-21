@@ -4,6 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsWebview extends StatefulWidget {
   String newsLink;
+
   NewsWebview({super.key, required this.newsLink});
 
   @override
@@ -12,10 +13,19 @@ class NewsWebview extends StatefulWidget {
 
 class _NewsWebviewState extends State<NewsWebview> {
   late WebViewController webViewController;
+  bool isLoading = true;
 
   @override
   void initState() {
-    webViewController = WebViewController()..loadRequest(Uri.parse(widget.newsLink));
+    webViewController = WebViewController()
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (String url) {
+          setState(() {
+            isLoading = false;
+          });
+        },
+      ))
+      ..loadRequest(Uri.parse(widget.newsLink));
     super.initState();
   }
 
@@ -24,15 +34,23 @@ class _NewsWebviewState extends State<NewsWebview> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: ()  {
-            // await shareNews(widget.newsLink);
-          }, icon: const Icon(Icons.bookmark_border_outlined)),
-          IconButton(onPressed: () async {
-            await shareNews(widget.newsLink);
-          }, icon: const Icon(Icons.share)),
+          IconButton(
+              onPressed: () {
+                // await shareNews(widget.newsLink);
+              },
+              icon: const Icon(Icons.bookmark_border_outlined)),
+          IconButton(
+              onPressed: () async {
+                await shareNews(widget.newsLink);
+              },
+              icon: const Icon(Icons.share)),
         ],
       ),
-      body: WebViewWidget(controller: webViewController),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : WebViewWidget(controller: webViewController),
     );
   }
 
@@ -41,6 +59,7 @@ class _NewsWebviewState extends State<NewsWebview> {
     final String message = 'Check out this! \n $newsLink';
 
     // Share the link and message using the share dialog
-    await FlutterShare.share(title: 'News App', text: message, linkUrl: newsLink);
+    await FlutterShare.share(
+        title: 'News App', text: message, linkUrl: newsLink);
   }
 }
