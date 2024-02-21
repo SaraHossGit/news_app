@@ -4,6 +4,8 @@ Stay plugged in with the most powerful and intuitive news app yet!
 
 Built with the cutting-edge Flutter framework, this app delivers a seamless experience to keep you informed about the world around you. Dive headfirst into the latest headlines across various categories, all presented in a beautifully designed and user-friendly interface.
 
+///////////////////Video//////////////////
+
 ## In this Project:
 
 ### Here's what sets it apart:
@@ -25,5 +27,13 @@ Built with the cutting-edge Flutter framework, this app delivers a seamless expe
 - webview_flutter: to open the url of any piece of news within the app
 - flutter_localizations: to allow app localizations (ie. changing app language and direction (rtl or ltr))
 
+### API Used:
+- News Api (https://newsapi.org/)
 
-
+### UI Inspo:
+- https://dribbble.com/shots/22294711-Artics-News-App
+- https://dribbble.com/shots/19939054-Mbaca-Article-Mobile-App
+- https://dribbble.com/shots/21035602-Wacana-News-Mobile-App
+- https://dribbble.com/shots/18295526-News-App-Mobile-Design
+- https://dribbble.com/shots/22098482-Mabolin-Sport-News-Mobile
+- https://dribbble.com/shots/23284533-News-App-UI
