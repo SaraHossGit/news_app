@@ -22,17 +22,17 @@ class SettingsScreen extends StatelessWidget {
               radius: 90,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           userName.isEmpty
-              ? SizedBox()
+              ? const SizedBox()
               : Center(
                 child: Text(userName,
                     style: Theme.of(context).textTheme.headlineLarge),
               ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Text("Account Settings",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _settingsTile(
             context: context,
             tileImg: "assets/images/profile.jpg",
@@ -40,10 +40,10 @@ class SettingsScreen extends StatelessWidget {
             tileDescription: "Edit and view profile info",
             onPressed: (){},
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Text("App Settings",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _settingsTile(
             context: context,
             tileImg: "assets/images/profile.jpg",
@@ -51,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
             tileDescription: "Choose your preferred app language",
             onPressed: (){},
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           _settingsTile(
             context: context,
             tileImg: "assets/images/profile.jpg",
@@ -77,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
         CircleAvatar(
             backgroundImage: AssetImage(tileImg)
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
         ),
-        Icon(Icons.chevron_right),
+        const Icon(Icons.chevron_right),
       ],),
   );
 }
