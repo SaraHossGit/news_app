@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/news_cubit.dart';
+import 'package:news_app/cubit/theme_cubit.dart';
 
 /// General
 Widget defaultSeparator() => Padding(
@@ -39,6 +40,7 @@ Widget defaultSearchBar() => TextFormField(
 Widget customNavBar({
   required List<GButton> bottomNavItemsList,
   required var bottomNavCubit,
+  required BuildContext context,
 }) =>
     GNav(
       hoverColor: Colors.grey.withOpacity(0.7),
@@ -54,7 +56,7 @@ Widget customNavBar({
       // tab animation duration
       gap: 8,
       // the tab button gap between icon and text
-      color: Colors.grey[800],
+      color: ThemeCubit().get(context).isDark?Colors.white30:Colors.grey[800],
       // unselected icon color
       activeColor: Colors.white,
       // selected icon and text color
@@ -72,6 +74,7 @@ Widget customNavBar({
     );
 
 Widget pageTitle({
+  required BuildContext context,
   required String title,
   required VoidCallback onTap,
 }) =>
@@ -82,7 +85,7 @@ Widget pageTitle({
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           GestureDetector(
             child: Text(
@@ -97,6 +100,7 @@ Widget pageTitle({
 
 /// News List and List tiles
 Widget defaultNewsTile({
+  required BuildContext context,
   required List<dynamic> articlesList,
   required int index,
 }) =>
@@ -128,7 +132,7 @@ Widget defaultNewsTile({
                 children: [
                   Text(
                     "${articlesList[index]["title"]}",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -165,6 +169,7 @@ Widget newsList(articlesList, {isSearching=false}) {
         itemBuilder: (context, index) => defaultNewsTile(
           articlesList: articlesList,
           index: index,
+          context: context
         ),
         separatorBuilder: (context, index) => SizedBox(height: 10),
         itemCount: 10);
@@ -269,12 +274,6 @@ Widget categoriesTabBar({
           onTap: (int selectedIndex) {
             cubit.getCategoriesNews(selectedIndex);
           },
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          dividerHeight: 0,
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorColor: Colors.black,
-          tabAlignment: TabAlignment.center,
           isScrollable: true,
           controller: tabController,
           tabs: buildTabItems(tabItemsList)),

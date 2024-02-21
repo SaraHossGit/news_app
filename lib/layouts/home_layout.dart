@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/states.dart';
-import 'package:news_app/modules/news_screen.dart';
+import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -19,7 +16,6 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   String userName = "Sara Hossam";
   String userImg = "";
-  bool isDark = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +42,35 @@ class _HomeLayoutState extends State<HomeLayout> {
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Hello,",
-                      style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                  Text(
+                    "Hello,",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: ThemeCubit().get(context).isDark?Colors.white30:Colors.grey[700]),
+                  ),
                   userName.isEmpty
                       ? SizedBox()
-                      : Text(userName, style: const TextStyle(fontSize: 14))
+                      : Text(userName,
+                          style: Theme.of(context).textTheme.labelLarge)
                 ],
               ),
               // Toggle Theme
               actions: [
+                Text(
+                  "Dark Mode",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
                 Switch(
-                  value: isDark,
+                  value: ThemeCubit().get(context).isDark,
                   onChanged: (value) {
                     setState(() {
-                      isDark = value;
+                      ThemeCubit().get(context).changeThemeMode();
                     });
                     print(value);
                   },
-                  activeColor: Colors.black,
-                  // activeThumbImage: AssetImage("assets/images/profile.jpg"),
-                  // inactiveThumbImage: AssetImage("assets/images/profile.jpg"),
+                  activeColor: Colors.white,
+                  inactiveThumbColor: Colors.black,
                 )
               ],
             ),
@@ -85,7 +90,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                           left: 16, right: 16, bottom: 10),
                       child: customNavBar(
                           bottomNavItemsList: bottomNavCubit.bottomNavItemsList,
-                          bottomNavCubit: bottomNavCubit),
+                          bottomNavCubit: bottomNavCubit,
+                          context: context),
                     ),
                   ),
                 ],

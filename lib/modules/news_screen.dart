@@ -47,10 +47,10 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      pageTitle(title: "Hot News", onTap: () {}),
+                      pageTitle(title: "Hot News", onTap: () {}, context: context),
                       defaultCarousel(newsCubit.trendingNewsList),
                       defaultSeparator(),
-                      pageTitle(title: "Explore By Category", onTap: () {}),
+                      pageTitle(title: "Explore By Category", onTap: () {}, context: context),
                       categoriesTabBar(
                           cubit: newsCubit,
                           tabController: _tabController,
