@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
             context: context,
             tileImg: "assets/images/profile.jpg",
             tileTitle: "Country",
-            tileDescription: "Choose the country you'd like to view its news",
+            tileDescription: "View news from different countries",
             onPressed: (){},
           ),
         ],
