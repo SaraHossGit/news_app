@@ -8,6 +8,24 @@ import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/modules/news_webview.dart';
 
 /// General
+Widget defaultButton(
+    {required VoidCallback changeSettingsFunc,
+      String buttonText = "Submit"}) =>
+    Container(
+        height: 45,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: MaterialButton(
+          onPressed: changeSettingsFunc,
+          child: Text(
+            buttonText,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ));
+
 Widget defaultSeparator() => Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
