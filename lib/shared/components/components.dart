@@ -17,7 +17,9 @@ Widget defaultSeparator() => Padding(
       ),
     );
 
-Widget defaultSearchBar() => TextFormField(
+Widget defaultSearchBar({required void Function(String)? onChanged}) =>
+    TextFormField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         label: Text("Search"),
         contentPadding: EdgeInsets.all(20),
@@ -57,7 +59,8 @@ Widget customNavBar({
       // tab animation duration
       gap: 8,
       // the tab button gap between icon and text
-      color: ThemeCubit().get(context).isDark?Colors.white30:Colors.grey[800],
+      color:
+          ThemeCubit().get(context).isDark ? Colors.white30 : Colors.grey[800],
       // unselected icon color
       activeColor: Colors.white,
       // selected icon and text color
@@ -86,7 +89,10 @@ Widget pageTitle({
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           GestureDetector(
             child: Text(
@@ -106,7 +112,9 @@ Widget defaultNewsTile({
   required int index,
 }) =>
     InkWell(
-      onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsWebview(newsLink: articlesList[index]["url"]))),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              NewsWebview(newsLink: articlesList[index]["url"]))),
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -166,22 +174,18 @@ Widget defaultNewsTile({
       ),
     );
 
-Widget newsList(articlesList, {isSearching=false}) {
-  if (!articlesList.isEmpty){
+Widget newsList(articlesList) {
+  if (!articlesList.isEmpty) {
     return ListView.separated(
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) => defaultNewsTile(
-          articlesList: articlesList,
-          index: index,
-          context: context
-        ),
+            articlesList: articlesList, index: index, context: context),
         separatorBuilder: (context, index) => SizedBox(height: 10),
         itemCount: articlesList.length);
   }
-  else if (isSearching && articlesList.isEmpty){
-    return Center(child: Container(child: Text("No Results Found"),));
-  }
-  return Center(child: CircularProgressIndicator(),);
+  return Center(
+    child: CircularProgressIndicator(),
+  );
 }
 
 /// Carousel
@@ -276,7 +280,7 @@ Widget categoriesTabBar({
       height: 40,
       child: TabBar(
           onTap: (int selectedIndex) {
-            if (cubit.categorizedNewsList[selectedIndex].isEmpty){
+            if (cubit.categorizedNewsList[selectedIndex].isEmpty) {
               cubit.getCategoriesNews(selectedIndex);
             }
           },
@@ -294,7 +298,8 @@ Widget categoriesTabView({
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: buildTabPages(articlesList: articlesList,numOfTabs: numOfTabs),
+        children:
+            buildTabPages(articlesList: articlesList, numOfTabs: numOfTabs),
       ),
     );
 
@@ -310,7 +315,8 @@ List<Widget> buildTabItems(tabItemsList) {
   return tabItems;
 }
 
-List<Widget> buildTabPages({required List<dynamic> articlesList, required int numOfTabs}) {
+List<Widget> buildTabPages(
+    {required List<dynamic> articlesList, required int numOfTabs}) {
   List<Widget> tabScreens = [];
   for (int i = 0; i < numOfTabs; i++) {
     tabScreens.add(newsList(articlesList[i]));

@@ -12,3 +12,7 @@ class TrendingNewsErrorState extends AppStates{}
 class CategorizedNewsLoadingState extends AppStates{}
 class CategorizedNewsSuccessState extends AppStates{}
 class CategorizedNewsErrorState extends AppStates{}
+
+class SearchNewsLoadingState extends AppStates{}
+class SearchNewsSuccessState extends AppStates{}
+class SearchNewsErrorState extends AppStates{}

@@ -64,6 +64,24 @@ class NewsCubit extends Cubit<AppStates> {
     });
   }
 
+  void searchNews(query){
+    emit(TrendingNewsLoadingState());
+    DioHelper.getData(
+      option: "/everything",
+      query: {
+        "q":query,
+        "apiKey":apiKey,
+      },
+    ).then((value){
+      searchResults=value.data["totalResults"];
+      searchNewsList=value.data["articles"];
+      emit(TrendingNewsSuccessState());
+    }).catchError((error){
+      print("Error in getting Business News ${error.toString()}");
+      emit(TrendingNewsErrorState());
+    });
+  }
+
 
 }
 
