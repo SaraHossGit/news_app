@@ -5,7 +5,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

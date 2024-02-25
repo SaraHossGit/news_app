@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/shared/style/colors.dart';
 
 lightThemeData() => ThemeData(
       primaryColor: Colors.black,
-      progressIndicatorTheme: ProgressIndicatorThemeData(
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: Colors.black,
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: const TabBarTheme(
         labelColor: Colors.black,
         unselectedLabelColor: Colors.grey,
         dividerHeight: 0,
@@ -16,20 +17,20 @@ lightThemeData() => ThemeData(
     );
 
 darkThemeData() => ThemeData(
-      scaffoldBackgroundColor: Color(0xFF333739),
+      scaffoldBackgroundColor: darkThemeBG,
       primaryColor: Colors.white,
-      progressIndicatorTheme: ProgressIndicatorThemeData(
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: Colors.white,
       ),
       appBarTheme: AppBarTheme(
-        color: Color(0xFF333739),
-        iconTheme: IconThemeData(
+        color: darkThemeBG,
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        titleTextStyle: TextStyle(color: Colors.white),
-        toolbarTextStyle: TextStyle(color: Colors.white),
+        titleTextStyle: const TextStyle(color: Colors.white),
+        toolbarTextStyle: const TextStyle(color: Colors.white),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: const TabBarTheme(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white30,
         dividerHeight: 0,
@@ -37,8 +38,8 @@ darkThemeData() => ThemeData(
         indicatorColor: Colors.white,
         tabAlignment: TabAlignment.center,
       ),
-  iconTheme: IconThemeData(color: Colors.white),
-  textTheme: TextTheme(
+  iconTheme: const IconThemeData(color: Colors.white),
+  textTheme: const TextTheme(
     headlineLarge:TextStyle(color: Colors.white),
     labelLarge: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.white),

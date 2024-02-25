@@ -21,12 +21,12 @@ Widget defaultSearchBar({required void Function(String)? onChanged}) =>
     TextFormField(
       onChanged: onChanged,
       decoration: InputDecoration(
-        label: Text("Search"),
-        contentPadding: EdgeInsets.all(20),
+        label: const Text("Search"),
+        contentPadding: const EdgeInsets.all(20),
         hintText: "Search News...",
         floatingLabelStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        suffixIcon: Icon(Icons.search),
+            const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        suffixIcon: const Icon(Icons.search),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white, width: 2.0),
           borderRadius: BorderRadius.circular(25),
@@ -55,7 +55,7 @@ Widget customNavBar({
       // tab button border
       curve: Curves.easeOutExpo,
       // tab animation curves
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       // tab animation duration
       gap: 8,
       // the tab button gap between icon and text
@@ -68,7 +68,7 @@ Widget customNavBar({
       // tab button icon size
       tabBackgroundColor: Colors.black,
       // selected tab background color
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       // navigation bar padding
       tabs: bottomNavItemsList,
       onTabChange: (index) {
@@ -95,7 +95,7 @@ Widget pageTitle({
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           GestureDetector(
-            child: Text(
+            child: const Text(
               "See all",
               style: TextStyle(color: Colors.blue),
             ),
@@ -116,7 +116,7 @@ Widget defaultNewsTile({
           builder: (context) =>
               NewsWebview(newsLink: articlesList[index]["url"]))),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey.withOpacity(0.3)),
@@ -134,7 +134,7 @@ Widget defaultNewsTile({
                 width: 80,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Container(
                 child: Column(
@@ -177,13 +177,13 @@ Widget defaultNewsTile({
 Widget newsList(articlesList) {
   if (!articlesList.isEmpty) {
     return ListView.separated(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => defaultNewsTile(
             articlesList: articlesList, index: index, context: context),
-        separatorBuilder: (context, index) => SizedBox(height: 10),
+        separatorBuilder: (context, index) => const SizedBox(height: 10),
         itemCount: articlesList.length);
   }
-  return Center(
+  return const Center(
     child: CircularProgressIndicator(),
   );
 }
@@ -241,24 +241,24 @@ Widget carouselItem(newsItem) => Builder(
               ),
               // Source
               Align(
-                  alignment: Alignment(-0.8, 0.3),
+                  alignment: const Alignment(-0.8, 0.3),
                   child: Container(
                     width: 200,
                     child: Text(
                       newsItem["author"] ?? "Unknown",
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),
               // Title
               Align(
-                  alignment: Alignment(-0.8, 0.8),
+                  alignment: const Alignment(-0.8, 0.8),
                   child: Container(
                     width: 200,
                     child: Text(
                       newsItem["title"],
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -296,7 +296,7 @@ Widget categoriesTabView({
 }) =>
     Expanded(
       child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children:
             buildTabPages(articlesList: articlesList, numOfTabs: numOfTabs),
