@@ -178,7 +178,7 @@ Widget newsList(articlesList, {isSearching=false}) {
         separatorBuilder: (context, index) => SizedBox(height: 10),
         itemCount: articlesList.length);
   }
-  else if (!isSearching && articlesList.isEmpty){
+  else if (isSearching && articlesList.isEmpty){
     return Center(child: Container(child: Text("No Results Found"),));
   }
   return Center(child: CircularProgressIndicator(),);
@@ -276,7 +276,9 @@ Widget categoriesTabBar({
       height: 40,
       child: TabBar(
           onTap: (int selectedIndex) {
-            cubit.getCategoriesNews(selectedIndex);
+            if (cubit.categorizedNewsList[selectedIndex].isEmpty){
+              cubit.getCategoriesNews(selectedIndex);
+            }
           },
           isScrollable: true,
           controller: tabController,
@@ -286,13 +288,13 @@ Widget categoriesTabBar({
 Widget categoriesTabView({
   required TabController? tabController,
   required List<dynamic> articlesList,
-  required List<dynamic> tabItemsList,
+  required int numOfTabs,
 }) =>
     Expanded(
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: buildTabPages(articlesList: articlesList,tabItemsList: tabItemsList),
+        children: buildTabPages(articlesList: articlesList,numOfTabs: numOfTabs),
       ),
     );
 
@@ -308,10 +310,10 @@ List<Widget> buildTabItems(tabItemsList) {
   return tabItems;
 }
 
-List<Widget> buildTabPages({required List<dynamic> articlesList, required List<dynamic> tabItemsList}) {
+List<Widget> buildTabPages({required List<dynamic> articlesList, required int numOfTabs}) {
   List<Widget> tabScreens = [];
-  for (int i = 0; i < tabItemsList.length; i++) {
-    tabScreens.add(newsList(articlesList));
+  for (int i = 0; i < numOfTabs; i++) {
+    tabScreens.add(newsList(articlesList[i]));
   }
   return tabScreens;
 }

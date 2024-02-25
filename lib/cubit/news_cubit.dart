@@ -21,7 +21,7 @@ class NewsCubit extends Cubit<AppStates> {
     "technology"
   ];
   List<dynamic> trendingNewsList=[];
-  List<dynamic> categorizedNewsList=[];
+  List<dynamic> categorizedNewsList=[[],[],[],[],[],[],[],];
   List<dynamic> searchNewsList=[];
   int searchResults=0;
   bool isSearching=false;
@@ -56,7 +56,7 @@ class NewsCubit extends Cubit<AppStates> {
         },
     ).then((value){
       print(value.data["articles"][0]["author"]);
-      categorizedNewsList=value.data["articles"];
+      categorizedNewsList.insert(selectedIndex,value.data["articles"]);
       emit(CategorizedNewsSuccessState());
     }).catchError((error){
       print("Error in getting Categorized News ${error.toString()}");
@@ -68,3 +68,4 @@ class NewsCubit extends Cubit<AppStates> {
 }
 
 //https://newsapi.org/v2/top-headlines?country=eg&category=business&apiKey=96441a138a154921875a803ef7c5cf03
+//Your API key is: 5507ce9111b0462fb738f75fd36ab1e7
