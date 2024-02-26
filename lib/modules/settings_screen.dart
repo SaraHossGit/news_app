@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/components/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
@@ -19,7 +20,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   File? userImg;
   var usernameEditingController = TextEditingController();
   bool isArabic = false;
-  bool isEgypt = false;
+  String? country;
+  int? selectedCountryIndex;
 
   @override
   void initState() {
@@ -27,7 +29,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     userImgPath = CacheHelper.getData(key: "userImg");
     userImg = File(userImgPath!);
     isArabic = CacheHelper.getData(key: "isArabic") ?? false;
-    isEgypt = CacheHelper.getData(key: "isEgypt") ?? false;
+    selectedCountryIndex = CacheHelper.getData(key: "countryIdx") ?? 0;
+    country = countries[selectedCountryIndex!];
 
     super.initState();
   }
@@ -345,51 +348,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // TextField
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
+                  // Countries
+                  Container(
+                    height: 50,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                        itemBuilder: (context,index)=> GestureDetector(
                           onTap: () =>
-                              stfSetState(() => changeCountry(country: "us")),
+                              stfSetState(() => changeCountry(countryIdx: index)),
                           child: Container(
                             height: 45,
+                            width: 70,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: !isEgypt ? Colors.black : Colors.grey[200],
+                              color: index==selectedCountryIndex ? Colors.black : Colors.grey[200],
                             ),
                             child: Text(
-                              "USA",
+                              countries[index],
                               style: TextStyle(
                                   color:
-                                      !isEgypt ? Colors.white : Colors.black),
+                                  index==selectedCountryIndex ? Colors.white : Colors.black),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () =>
-                              stfSetState(() => changeCountry(country: "eg")),
-                          child: Container(
-                            height: 45,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: isEgypt ? Colors.black : Colors.grey[200],
-                            ),
-                            child: Text(
-                              "Egypt",
-                              style: TextStyle(
-                                  color: isEgypt ? Colors.white : Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                        separatorBuilder: (context,index)=>const SizedBox(width: 10),
+                        itemCount: countries.length),
+                  )
                 ],
               ),
             ),
@@ -399,9 +386,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  void changeCountry({required String country}) => setState(() {
-        isEgypt = !isEgypt;
-        NewsCubit().get(context).country = country;
+  void changeCountry({required int countryIdx}) => setState(() {
+        selectedCountryIndex=countryIdx;
+        NewsCubit().get(context).country = countries[countryIdx];
+        CacheHelper.saveData(key: "countryIdx", value: countryIdx);
+        // clear categorizedNewsList
         NewsCubit().get(context).categorizedNewsList = [
           [],
           [],
@@ -411,8 +400,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           [],
           [],
         ];
+        // Fill it again with the new data
         NewsCubit().get(context).getCategoriesNews(0);
         NewsCubit().get(context).getTrendingNews();
-        CacheHelper.saveData(key: "isEgypt", value: isEgypt);
       });
 }

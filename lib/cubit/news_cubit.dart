@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/states.dart';
+import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/components/constants.dart';
 
@@ -10,7 +11,7 @@ class NewsCubit extends Cubit<AppStates> {
   NewsCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
-  String country="us";
+  String country=countries[CacheHelper.getData(key: "countryIdx") ?? 0];
   List<String> categoriesList = [
     "business",
     "entertainment",
