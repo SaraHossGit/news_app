@@ -3,6 +3,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'dart:ui';
 
 class NewsCubit extends Cubit<AppStates> {
   NewsCubit() : super(InitState());
@@ -11,6 +12,7 @@ class NewsCubit extends Cubit<AppStates> {
   NewsCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
+  Locale language=CacheHelper.getData(key: "isArabic")?Locale('ar'):Locale('en');
   String country=countries[CacheHelper.getData(key: "countryIdx") ?? 0];
   List<String> categoriesList = [
     "business",

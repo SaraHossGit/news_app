@@ -1,14 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({super.key});
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -63,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       style: Theme.of(context).textTheme.headlineLarge),
                 ),
           const SizedBox(height: 50),
-          Text("Account Settings",
+          Text(AppLocalizations.of(context)!.accountSettings,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
@@ -72,20 +74,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _settingsTile(
             context: context,
             tileIcon: Icons.person,
-            tileTitle: "Your Username",
-            tileDescription: "Edit or view profile username",
+            tileTitle: AppLocalizations.of(context)!.username,
+            tileDescription: AppLocalizations.of(context)!.usernameDesc,
             onPressed: () => showUsernameDialog(context: context),
           ),
           const SizedBox(height: 15),
           _settingsTile(
             context: context,
             tileIcon: Icons.camera_alt,
-            tileTitle: "Your Profile Pic",
-            tileDescription: "Edit or view profile picture",
+            tileTitle: AppLocalizations.of(context)!.profilePic,
+            tileDescription: AppLocalizations.of(context)!.profilePicDesc,
             onPressed: () => showProfileImgDialog(context: context),
           ),
           const SizedBox(height: 15),
-          Text("App Settings",
+          Text(AppLocalizations.of(context)!.appSettings,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
@@ -94,16 +96,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _settingsTile(
             context: context,
             tileIcon: Icons.language,
-            tileTitle: "Language",
-            tileDescription: "Choose your preferred app language",
+            tileTitle: AppLocalizations.of(context)!.lang,
+            tileDescription: AppLocalizations.of(context)!.langDesc,
             onPressed: () => showLangDialog(context: context),
           ),
           const SizedBox(height: 15),
           _settingsTile(
             context: context,
             tileIcon: Icons.place,
-            tileTitle: "Country",
-            tileDescription: "View news from different countries",
+            tileTitle: AppLocalizations.of(context)!.country,
+            tileDescription: AppLocalizations.of(context)!.countryDesc,
             onPressed: () => showCountryDialog(context: context),
           ),
         ],
@@ -150,10 +152,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text(
-          "Change Username",
+        title: Text(
+          AppLocalizations.of(context)!.showUsernameDialog,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -180,7 +182,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 15),
               // Submit Button
-              defaultButton(changeSettingsFunc: changeUserName),
+              defaultButton(
+                  buttonText: AppLocalizations.of(context)!.submit,
+                  changeSettingsFunc: changeUserName),
             ],
           ),
         ),
@@ -201,10 +205,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text(
-          "Change Profile Pic",
+        title: Text(
+          AppLocalizations.of(context)!.showImgDialog1,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -215,13 +219,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               defaultButton(
-                buttonText: "Pick Image from Gallery",
+                buttonText: AppLocalizations.of(context)!.showImgDialog2,
                 changeSettingsFunc: () =>
                     pickProfilePic(source: ImageSource.gallery),
               ),
               const SizedBox(height: 15),
               defaultButton(
-                buttonText: "Pick Image from Camera",
+                buttonText: AppLocalizations.of(context)!.showImgDialog3,
                 changeSettingsFunc: () =>
                     pickProfilePic(source: ImageSource.camera),
               ),
@@ -251,10 +255,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const Text(
-              "Change Default App Language",
+            title: Text(
+              AppLocalizations.of(context)!.showLangDialog,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -269,7 +273,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => stfSetState(() =>changeLang(lang: "en")),
+                          onTap: () =>
+                              stfSetState(() => changeLang(lang: "en")),
                           child: Container(
                             height: 45,
                             alignment: Alignment.center,
@@ -290,7 +295,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => stfSetState(() =>changeLang(lang: "ar")),
+                          onTap: () =>
+                              stfSetState(() => changeLang(lang: "ar")),
                           child: Container(
                             height: 45,
                             alignment: Alignment.center,
@@ -318,12 +324,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  void changeLang({required String lang}) =>setState(() {
-    isArabic = !isArabic;
-    CacheHelper.saveData(
-        key: "isArabic", value: isArabic);
-    print(isArabic);
-  });
+  void changeLang({required String lang}) => setState(() {
+        isArabic = !isArabic;
+        CacheHelper.saveData(key: "isArabic", value: isArabic);
+        print(isArabic);
+        Phoenix.rebirth(context);
+      });
 
   void showCountryDialog({
     required BuildContext context,
@@ -335,10 +341,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const Text(
-              "View News From:",
+            title: Text(
+              AppLocalizations.of(context)!.showCountryDialog,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -352,29 +358,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Container(
                     height: 50,
                     child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index)=> GestureDetector(
-                          onTap: () =>
-                              stfSetState(() => changeCountry(countryIdx: index)),
-                          child: Container(
-                            height: 45,
-                            width: 70,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: index==selectedCountryIndex ? Colors.black : Colors.grey[200],
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => stfSetState(
+                                  () => changeCountry(countryIdx: index)),
+                              child: Container(
+                                height: 45,
+                                width: 70,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: index == selectedCountryIndex
+                                      ? Colors.black
+                                      : Colors.grey[200],
+                                ),
+                                child: Text(
+                                  countries[index],
+                                  style: TextStyle(
+                                      color: index == selectedCountryIndex
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              countries[index],
-                              style: TextStyle(
-                                  color:
-                                  index==selectedCountryIndex ? Colors.white : Colors.black),
-                            ),
-                          ),
-                        ),
-                        separatorBuilder: (context,index)=>const SizedBox(width: 10),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 10),
                         itemCount: countries.length),
                   )
                 ],
@@ -387,21 +397,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void changeCountry({required int countryIdx}) => setState(() {
-        selectedCountryIndex=countryIdx;
+        selectedCountryIndex = countryIdx;
         NewsCubit().get(context).country = countries[countryIdx];
         CacheHelper.saveData(key: "countryIdx", value: countryIdx);
-        // clear categorizedNewsList
-        NewsCubit().get(context).categorizedNewsList = [
-          [],
-          [],
-          [],
-          [],
-          [],
-          [],
-          [],
-        ];
-        // Fill it again with the new data
-        NewsCubit().get(context).getCategoriesNews(0);
-        NewsCubit().get(context).getTrendingNews();
+        Phoenix.rebirth(context);
       });
 }

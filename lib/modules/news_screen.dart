@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -49,11 +50,12 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                   padding: const EdgeInsets.only(top: 16.0,left: 16.0,right: 16.0),
                   child: Column(
                     children: [
-                      pageTitle(title: "Hot News", onTap: () {}, context: context),
+                      pageTitle(title: AppLocalizations.of(context)!.hotNews, onTap: () {}, context: context),
                       defaultCarousel(newsCubit.trendingNewsList),
                       defaultSeparator(),
-                      pageTitle(title: "Explore By Category", onTap: () {}, context: context),
+                      pageTitle(title: AppLocalizations.of(context)!.exploreByCategory, onTap: () {}, context: context),
                       categoriesTabBar(
+                        context: context,
                           cubit: newsCubit,
                           tabController: _tabController,
                           tabItemsList: tabItemsList),

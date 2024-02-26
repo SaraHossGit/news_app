@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -9,8 +8,8 @@ import 'package:news_app/modules/news_webview.dart';
 
 /// General
 Widget defaultButton(
-    {required VoidCallback changeSettingsFunc,
-      String buttonText = "Submit"}) =>
+        {required VoidCallback changeSettingsFunc,
+        String buttonText = "Submit"}) =>
     Container(
         height: 45,
         width: double.infinity,
@@ -113,11 +112,11 @@ Widget pageTitle({
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           GestureDetector(
-            child: const Text(
-              "See all",
-              style: TextStyle(color: Colors.blue),
-            ),
             onTap: onTap,
+            child: Text(
+              AppLocalizations.of(context)!.seeAll,
+              style: const TextStyle(color: Colors.blue),
+            ),
           ),
         ],
       ),
@@ -293,6 +292,7 @@ Widget categoriesTabBar({
   required TabController? tabController,
   required List<dynamic> tabItemsList,
   required NewsCubit cubit,
+  required BuildContext context,
 }) =>
     Container(
       height: 40,
@@ -304,7 +304,7 @@ Widget categoriesTabBar({
           },
           isScrollable: true,
           controller: tabController,
-          tabs: buildTabItems(tabItemsList)),
+          tabs: buildTabItems(tabItemsList, context)),
     );
 
 Widget categoriesTabView({
@@ -321,15 +321,30 @@ Widget categoriesTabView({
       ),
     );
 
-List<Widget> buildTabItems(tabItemsList) {
-  List<Widget> tabItems = [];
-  for (int i = 0; i < tabItemsList.length; i++) {
-    tabItems.add(
-      Tab(
-        text: tabItemsList[i],
-      ),
-    );
-  }
+List<Widget> buildTabItems(tabItemsList, context) {
+  List<Widget> tabItems = [
+    Tab(
+      text: AppLocalizations.of(context)!.business,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.entertainment,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.general,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.health,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.science,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.sports,
+    ),
+    Tab(
+      text: AppLocalizations.of(context)!.technology,
+    ),
+  ];
   return tabItems;
 }
 

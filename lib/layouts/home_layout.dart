@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -15,8 +19,27 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  String userName = "Sara Hossam";
-  String userImg = "";
+  String userName = CacheHelper.getData(key: "userName");
+  String userImgPath = CacheHelper.getData(key: "userImg");
+  late File userImg = File(userImgPath);
+  late List<GButton> bottomNavItemsList = [
+    GButton(
+      icon: Icons.home_outlined,
+      text: AppLocalizations.of(context)!.home,
+    ),
+    GButton(
+      icon: Icons.search,
+      text: AppLocalizations.of(context)!.search,
+    ),
+    GButton(
+      icon: Icons.bookmark_border_outlined,
+      text: AppLocalizations.of(context)!.bookmarks,
+    ),
+    GButton(
+      icon: Icons.settings_outlined,
+      text: AppLocalizations.of(context)!.settings,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +54,12 @@ class _HomeLayoutState extends State<HomeLayout> {
               leading: Row(
                 children: [
                   const SizedBox(width: 16),
-                  CircleAvatar(
-                    backgroundImage: userImg.isEmpty
-                        ? const AssetImage("assets/images/profile.jpg")
-                        : AssetImage(userImg),
-                  ),
-                  // SizedBox(width: 16,),
+                  userImg != null
+                      ? CircleAvatar(backgroundImage: FileImage(userImg))
+                      : const CircleAvatar(
+                          backgroundImage:
+                              AssetImage("assets/images/profile.jpg"),
+                        ),
                 ],
               ),
               // Username
@@ -44,14 +67,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hello,",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: ThemeCubit().get(context).isDark?Colors.white30:Colors.grey[700]),
+                    AppLocalizations.of(context)!.hello,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: ThemeCubit().get(context).isDark
+                            ? Colors.white30
+                            : Colors.grey[700]),
                   ),
                   userName.isEmpty
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Text(userName,
                           style: Theme.of(context).textTheme.labelLarge)
                 ],
@@ -59,7 +82,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               // Toggle Theme
               actions: [
                 Text(
-                  "Dark Mode",
+                  AppLocalizations.of(context)!.darkMode,
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
                 Switch(
@@ -88,7 +111,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: customNavBar(
-                          bottomNavItemsList: bottomNavCubit.bottomNavItemsList,
+                          bottomNavItemsList: bottomNavItemsList,
                           bottomNavCubit: bottomNavCubit,
                           context: context),
                     ),

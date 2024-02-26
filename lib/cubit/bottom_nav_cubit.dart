@@ -14,33 +14,18 @@ class BottomNavCubit extends Cubit<AppStates> {
   BottomNavCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
-  int currentNavBarIndex=0;
-  late List<GButton> bottomNavItemsList= [
-    const GButton(
-      icon: Icons.home_outlined,
-      text: "Home",
-    ),
-    const GButton(
-      icon: Icons.search,
-      text: "Search",
-    ),
-    const GButton(
-      icon: Icons.bookmark_border_outlined,
-      text: "Bookmarks",
-    ),
-    const GButton(
-      icon: Icons.settings_outlined,
-      text: "Settings",
-    ),
+  int currentNavBarIndex = 0;
+
+  late List<Widget> appScreens = [
+    NewsScreen(),
+    SearchScreen(),
+    BookmarksScreen(),
+    SettingsScreen(),
   ];
 
-  late List<Widget> appScreens=[NewsScreen(),SearchScreen(),BookmarksScreen(),SettingsScreen(),];
-
   //Cubit methods
-  void changeNavBar(index){
-    currentNavBarIndex=index;
+  void changeNavBar(index) {
+    currentNavBarIndex = index;
     emit(BottomNavBarChangedState());
   }
-
-
 }

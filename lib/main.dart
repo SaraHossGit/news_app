@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/states.dart';
@@ -9,7 +10,8 @@ import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/style/themes.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'shared/bloc_observer.dart';
 
 Future<void> main() async {
@@ -18,7 +20,11 @@ Future<void> main() async {
   await CacheHelper.init();
   bool? isDark=CacheHelper.getData(key: "isDark");
   DioHelper.init();
-  runApp(MyApp(isDark: isDark,));
+  runApp(
+    Phoenix(
+      child: MyApp(isDark: isDark,),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -30,10 +36,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: isDark),
+          create: (context) => BottomNavCubit(),
         ),
         BlocProvider(
-          create: (context) => BottomNavCubit(),
+          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: isDark),
         ),
         BlocProvider(
           create: (context) => NewsCubit()..getCategoriesNews(0)..getTrendingNews(),
@@ -45,17 +51,19 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
 
-            // /// Localization
-            // localizationsDelegates: const [
-            //   GlobalCupertinoLocalizations.delegate,
-            //   GlobalMaterialLocalizations.delegate,
-            //   GlobalWidgetsLocalizations.delegate,
-            // ],
-            // supportedLocales: const [
-            //   Locale('ar', 'AE'),
-            // ],
-            // // Current Locale
-            // locale: Locale('ar', 'AE'),
+            /// Localization
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('ar'),
+              Locale('en'),
+            ],
+            // Current Locale
+            locale: NewsCubit().get(context).language,
 
             // Theme Data
             theme: lightThemeData(),
