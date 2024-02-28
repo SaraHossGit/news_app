@@ -31,5 +31,6 @@
   "showImgDialog2": "Pick Image from Gallery",
   "showImgDialog3": "Pick Image from Camera",
   "showUsernameDialog": "Change Username",
-  "submit": "submit"
+  "submit": "submit",
+  "noData": "No Data Found"
 }

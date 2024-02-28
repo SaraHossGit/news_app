@@ -11,6 +11,8 @@ import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../cubit/bookmarks_cubit.dart';
+
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
@@ -40,6 +42,11 @@ class _HomeLayoutState extends State<HomeLayout> {
       text: AppLocalizations.of(context)!.settings,
     ),
   ];
+  @override
+  void initState() {
+    BookmarksCubit().get(context).createBookmarksDatabase();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -41,7 +41,7 @@ class SearchScreen extends StatelessWidget {
                                 fontSize: 16
                               ),),
                               const SizedBox(height: 15),
-                              Expanded(child: newsList(newsCubit.searchNewsList,))
+                              Expanded(child: newsList(newsCubit.searchNewsList))
                             ],
                           )),
                     ),

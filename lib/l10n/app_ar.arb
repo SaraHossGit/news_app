@@ -31,5 +31,6 @@
   "showImgDialog2": "اختر صورة من المعرض",
   "showImgDialog3": "اختر صورة من الكاميرا",
   "showUsernameDialog": "تغيير اسم المستخدم",
-  "submit": "تم"
+  "submit": "تم",
+  "noData": "لا يوجد بيانات"
 }

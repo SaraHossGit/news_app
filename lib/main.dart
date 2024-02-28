@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:news_app/cubit/bookmarks_cubit.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/states.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NewsCubit()..getCategoriesNews(0)..getTrendingNews(),
+        ),
+        BlocProvider(
+          create: (context) => BookmarksCubit()..createBookmarksDatabase(),
         ),
       ],
       child: BlocConsumer<ThemeCubit, AppStates>(

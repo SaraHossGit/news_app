@@ -126,12 +126,17 @@ Widget pageTitle({
 Widget defaultNewsTile({
   required BuildContext context,
   required List<dynamic> articlesList,
-  required int index,
+  required int idx,
 }) =>
     InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              NewsWebview(newsLink: articlesList[index]["url"]))),
+              NewsWebview(newsLink: articlesList[idx]["url"],
+              newsDate: articlesList[idx]["publishedAt"],
+              newsImage: articlesList[idx]["urlToImage"] ??
+                  "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+              newsSource: articlesList[idx]["author"] ?? "Unknown",
+              newsTitle: articlesList[idx]["title"],))),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -144,7 +149,7 @@ Widget defaultNewsTile({
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                articlesList[index]["urlToImage"] ??
+                articlesList[idx]["urlToImage"] ??
                     "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
                 fit: BoxFit.cover,
                 height: 80,
@@ -159,7 +164,7 @@ Widget defaultNewsTile({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${articlesList[index]["title"]}",
+                      "${articlesList[idx]["title"]}",
                       style: Theme.of(context).textTheme.labelLarge,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -169,13 +174,13 @@ Widget defaultNewsTile({
                       children: [
                         Expanded(
                           child: Text(
-                            articlesList[index]["author"] ?? "Unknown",
+                            articlesList[idx]["author"] ?? "Unknown",
                             style: TextStyle(color: Colors.grey[500]),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(
-                          articlesList[index]["publishedAt"]
+                          articlesList[idx]["publishedAt"]
                               .toString()
                               .substring(0, 10),
                           style: TextStyle(color: Colors.grey[500]),
@@ -196,7 +201,7 @@ Widget newsList(articlesList) {
     return ListView.separated(
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => defaultNewsTile(
-            articlesList: articlesList, index: index, context: context),
+            articlesList: articlesList, idx: index, context: context),
         separatorBuilder: (context, index) => const SizedBox(height: 10),
         itemCount: articlesList.length);
   }
