@@ -7,10 +7,10 @@ Built with the cutting-edge Flutter framework, this app delivers a seamless expe
 ### Demo Video: https://drive.google.com/file/d/1-q0kyV5TO4KeffKWjEx2zMtJ3p85yaXO/view?usp=drive_link
 
 ### Screenshots:
-<img src='https://github.com/SaraHossGit/news_app/assets/89196087/0cc42592-746a-4700-a04d-6128722508b1' height='550'>
-<img src='https://github.com/SaraHossGit/news_app/assets/89196087/5ab9f2da-192c-47c4-8f05-75ab1b6539b1' height='550'>
-<img src='https://github.com/SaraHossGit/news_app/assets/89196087/a9becded-d69d-4131-9f46-5c7bed3e5671' height='550'>
-<img src='https://github.com/SaraHossGit/news_app/assets/89196087/7d9812b4-50ae-40ce-89c1-e170eb89ff44' height='550'>
+<img src='https://github.com/SaraHossGit/news_app/assets/89196087/0cc42592-746a-4700-a04d-6128722508b1' height='500'>
+<img src='https://github.com/SaraHossGit/news_app/assets/89196087/5ab9f2da-192c-47c4-8f05-75ab1b6539b1' height='500'>
+<img src='https://github.com/SaraHossGit/news_app/assets/89196087/a9becded-d69d-4131-9f46-5c7bed3e5671' height='500'>
+<img src='https://github.com/SaraHossGit/news_app/assets/89196087/7d9812b4-50ae-40ce-89c1-e170eb89ff44' height='500'>
 
 ## In this Project:
 
