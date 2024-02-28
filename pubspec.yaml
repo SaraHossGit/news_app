@@ -47,6 +47,7 @@ dependencies:
   intl: any
   flutter_phoenix: ^1.1.1
   sqflite: ^2.3.2
+  smooth_page_indicator: ^1.1.0
 
 
 dev_dependencies:

@@ -7,6 +7,7 @@ import 'package:news_app/cubit/news_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/layouts/home_layout.dart';
+import 'package:news_app/modules/onboarding_screen.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/components/constants.dart';
@@ -22,13 +23,13 @@ Future<void> main() async {
   DioHelper.init();
   runApp(
     Phoenix(
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +39,21 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomNavCubit(),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: true),
+          create: (context) =>
+              ThemeCubit()..changeThemeMode(isDarkFromShared: true),
         ),
         BlocProvider(
-          create: (context) => NewsCubit()..getCategoriesNews(0)..getTrendingNews(),
+          create: (context) => NewsCubit()
+            ..getCategoriesNews(0)
+            ..getTrendingNews(),
         ),
         BlocProvider(
           create: (context) => BookmarksCubit()..createBookmarksDatabase(),
         ),
       ],
       child: BlocConsumer<ThemeCubit, AppStates>(
-        listener: (context,state){},
-        builder: (context,state){
+        listener: (context, state) {},
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
 
@@ -70,10 +74,14 @@ class MyApp extends StatelessWidget {
             // Theme Data
             theme: lightThemeData(),
             darkTheme: darkThemeData(),
-            themeMode: ThemeCubit().get(context).isDark? ThemeMode.dark:ThemeMode.light,
+            themeMode: ThemeCubit().get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
 
             // Home Layout
-            home: HomeLayout(),
+            home: CacheHelper.getData(key: "onBoarding")
+                ? const HomeLayout()
+                : const OnBoardingScreen(),
           );
         },
       ),

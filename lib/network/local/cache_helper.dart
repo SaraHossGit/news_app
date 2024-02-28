@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /*
   KEYS STORED IN SHAREDPREF:
+    onBoarding (bool) => skip onboarding screen
     isDark (bool) => app theme
     countryIdx (int) => news country
     isArabic (bool) => app language
