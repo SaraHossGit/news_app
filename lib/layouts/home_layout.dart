@@ -1,17 +1,14 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:news_app/cubit/bookmarks_cubit.dart';
 import 'package:news_app/cubit/bottom_nav_cubit.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/cubit/theme_cubit.dart';
 import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../cubit/bookmarks_cubit.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -21,8 +18,8 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  String userName = CacheHelper.getData(key: "userName")??"";
-  String userImgPath = CacheHelper.getData(key: "userImg")??"";
+  String userName = CacheHelper.getData(key: "userName") ?? "";
+  String userImgPath = CacheHelper.getData(key: "userImg") ?? "";
   late File userImg = File(userImgPath);
   late List<GButton> bottomNavItemsList = [
     GButton(
@@ -42,6 +39,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       text: AppLocalizations.of(context)!.settings,
     ),
   ];
+
   @override
   void initState() {
     BookmarksCubit().get(context).createBookmarksDatabase();
@@ -61,12 +59,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               leading: Row(
                 children: [
                   const SizedBox(width: 16),
-                  userImg != null
-                      ? CircleAvatar(backgroundImage: FileImage(userImg))
-                      : const CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/profile.jpg"),
-                        ),
+                  CircleAvatar(backgroundImage: FileImage(userImg))
                 ],
               ),
               // Username
@@ -130,5 +123,3 @@ class _HomeLayoutState extends State<HomeLayout> {
         });
   }
 }
-
-// Your API key is: 96441a138a154921875a803ef7c5cf03

@@ -14,40 +14,48 @@ class SearchScreen extends StatelessWidget {
         builder: (context, state) {
           NewsCubit newsCubit = NewsCubit().get(context);
           return Container(
-                color: Colors.grey[200],
+            color: Colors.grey[200],
             padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    defaultSearchBar(onChanged: (query){
-                      if (query.isEmpty){
-                        newsCubit.searchNewsList.clear();
-                      }
-                      newsCubit.searchNews(query);
-                    }),
-                    const SizedBox(height: 10),
-                    // News List
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                          color:Colors.white,
+            child: Column(
+              children: [
+                defaultSearchBar(onChanged: (query) {
+                  if (query.isEmpty) {
+                    newsCubit.searchNewsList.clear();
+                  }
+                  newsCubit.searchNews(query);
+                }),
+                const SizedBox(height: 10),
+                // News List
+                Expanded(
+                  child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(25),
                       ),
-                          child: newsCubit.searchNewsList.isEmpty?Center(child: Container(child: Text("No Results Found"),)):Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Found ${newsCubit.searchResults} results", style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16
-                              ),),
-                              const SizedBox(height: 15),
-                              Expanded(child: newsList(newsCubit.searchNewsList))
-                            ],
-                          )),
-                    ),
-                  ],
+                      child: newsCubit.searchNewsList.isEmpty
+                          ? Center(
+                              child: Container(
+                              child: Text("No Results Found"),
+                            ))
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Found ${newsCubit.searchResults} results",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                const SizedBox(height: 15),
+                                Expanded(
+                                    child: newsList(newsCubit.searchNewsList))
+                              ],
+                            )),
                 ),
-              );
+              ],
+            ),
+          );
         });
   }
 }

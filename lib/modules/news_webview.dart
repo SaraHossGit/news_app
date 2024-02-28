@@ -12,7 +12,8 @@ class NewsWebview extends StatefulWidget {
   String newsImage;
   String newsLink;
 
-  NewsWebview({super.key,
+  NewsWebview({
+    super.key,
     required this.newsTitle,
     required this.newsDate,
     required this.newsSource,
@@ -64,9 +65,9 @@ class _NewsWebviewState extends State<NewsWebview> {
                             link: widget.newsLink);
                       });
                     },
-                    icon: isBookmarked ? const Icon(
-                        Icons.bookmark_added_rounded) : const Icon(
-                        Icons.bookmark_border_outlined)),
+                    icon: isBookmarked
+                        ? const Icon(Icons.bookmark_added_rounded)
+                        : const Icon(Icons.bookmark_border_outlined)),
                 IconButton(
                     onPressed: () async {
                       await shareNews(widget.newsLink);
@@ -76,12 +77,11 @@ class _NewsWebviewState extends State<NewsWebview> {
             ),
             body: isLoading
                 ? const Center(
-              child: CircularProgressIndicator(),
-            )
+                    child: CircularProgressIndicator(),
+                  )
                 : WebViewWidget(controller: webViewController),
           );
-        }
-    );
+        });
   }
 
   Future<void> shareNews(newsLink) async {

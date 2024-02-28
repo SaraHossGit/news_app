@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/modules/bookmarks_screen.dart';
 import 'package:news_app/modules/news_screen.dart';
@@ -17,10 +16,10 @@ class BottomNavCubit extends Cubit<AppStates> {
   int currentNavBarIndex = 0;
 
   late List<Widget> appScreens = [
-    NewsScreen(),
-    SearchScreen(),
-    BookmarksScreen(),
-    SettingsScreen(),
+    const NewsScreen(),
+    const SearchScreen(),
+    const BookmarksScreen(),
+    const SettingsScreen(),
   ];
 
   //Cubit methods

@@ -10,7 +10,7 @@ class BookmarksCubit extends Cubit<AppStates> {
 
   //Cubit vars
   late Database database;
-  List<dynamic> bookmarksList=[];
+  List<dynamic> bookmarksList = [];
 
   //Cubit methods
   void createBookmarksDatabase() async {
@@ -60,20 +60,13 @@ class BookmarksCubit extends Cubit<AppStates> {
 
     database.rawQuery('SELECT * FROM Bookmarks').then((value) {
       bookmarksList.clear();
-      for(int i=0;i<value.length;i++){
+      for (int i = 0; i < value.length; i++) {
         bookmarksList.add(value[i]);
       }
       print(bookmarksList);
       emit(GetRecordSuccessState());
-    }).catchError((onError)=>emit(GetRecordErrorState()));
+    }).catchError((onError) => emit(GetRecordErrorState()));
   }
-
-// Future<List<dynamic>> getRecords() {
-//   Future<List<dynamic>> bookmarks=database.rawQuery('SELECT * FROM Bookmarks');
-//   return bookmarks;
-// }
-
-// void updateRecord() {}
 
   void deleteRecord() {}
 }

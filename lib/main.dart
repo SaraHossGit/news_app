@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
                 : ThemeMode.light,
 
             // Home Layout
-            home: CacheHelper.getData(key: "onBoarding")
+            home: CacheHelper.getData(key: "onBoarding") != null
                 ? const HomeLayout()
                 : const OnBoardingScreen(),
           );

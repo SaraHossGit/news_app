@@ -14,13 +14,14 @@ class ThemeCubit extends Cubit<AppStates> {
 
   //Cubit methods
   void changeThemeMode({bool? isDarkFromShared}) {
-    if (isDarkFromShared == null) { // not sent as a param
+    if (isDarkFromShared == null) {
+      // isDarkFromShared not sent as a param
       isDark = !isDark;
       CacheHelper.saveData(key: "isDark", value: isDark)
           .then((value) => emit(ThemeModeChangedState()));
     } else {
       // if there is a cached value, get it
-      isDark = CacheHelper.getData(key: "isDark")?? false;
+      isDark = CacheHelper.getData(key: "isDark") ?? false;
     }
   }
 }

@@ -90,7 +90,6 @@ Widget customNavBar({
       tabs: bottomNavItemsList,
       onTabChange: (index) {
         bottomNavCubit.changeNavBar(index);
-        print(index);
       },
     );
 
@@ -130,13 +129,14 @@ Widget defaultNewsTile({
 }) =>
     InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              NewsWebview(newsLink: articlesList[idx]["url"],
-              newsDate: articlesList[idx]["publishedAt"],
-              newsImage: articlesList[idx]["urlToImage"] ??
-                  "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
-              newsSource: articlesList[idx]["author"] ?? "Unknown",
-              newsTitle: articlesList[idx]["title"],))),
+          builder: (context) => NewsWebview(
+                newsLink: articlesList[idx]["url"],
+                newsDate: articlesList[idx]["publishedAt"],
+                newsImage: articlesList[idx]["urlToImage"] ??
+                    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+                newsSource: articlesList[idx]["author"] ?? "Unknown",
+                newsTitle: articlesList[idx]["title"],
+              ))),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -158,37 +158,35 @@ Widget defaultNewsTile({
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "${articlesList[idx]["title"]}",
-                      style: Theme.of(context).textTheme.labelLarge,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            articlesList[idx]["author"] ?? "Unknown",
-                            style: TextStyle(color: Colors.grey[500]),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Text(
-                          articlesList[idx]["publishedAt"]
-                              .toString()
-                              .substring(0, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${articlesList[idx]["title"]}",
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          articlesList[idx]["author"] ?? "Unknown",
                           style: TextStyle(color: Colors.grey[500]),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      Text(
+                        articlesList[idx]["publishedAt"]
+                            .toString()
+                            .substring(0, 10),
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -264,7 +262,7 @@ Widget carouselItem(newsItem) => Builder(
               // Source
               Align(
                   alignment: const Alignment(-0.8, 0.3),
-                  child: Container(
+                  child: SizedBox(
                     width: 200,
                     child: Text(
                       newsItem["author"] ?? "Unknown",
@@ -276,7 +274,7 @@ Widget carouselItem(newsItem) => Builder(
               // Title
               Align(
                   alignment: const Alignment(-0.8, 0.8),
-                  child: Container(
+                  child: SizedBox(
                     width: 200,
                     child: Text(
                       newsItem["title"],
@@ -299,7 +297,7 @@ Widget categoriesTabBar({
   required NewsCubit cubit,
   required BuildContext context,
 }) =>
-    Container(
+    SizedBox(
       height: 40,
       child: TabBar(
           onTap: (int selectedIndex) {
