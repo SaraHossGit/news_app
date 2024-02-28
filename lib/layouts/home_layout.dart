@@ -19,8 +19,8 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  String userName = CacheHelper.getData(key: "userName");
-  String userImgPath = CacheHelper.getData(key: "userImg");
+  String userName = CacheHelper.getData(key: "userName")??"";
+  String userImgPath = CacheHelper.getData(key: "userImg")??"";
   late File userImg = File(userImgPath);
   late List<GButton> bottomNavItemsList = [
     GButton(

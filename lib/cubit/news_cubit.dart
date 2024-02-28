@@ -12,7 +12,7 @@ class NewsCubit extends Cubit<AppStates> {
   NewsCubit get(context) => BlocProvider.of(context);
 
   //Cubit vars
-  Locale language=CacheHelper.getData(key: "isArabic")?Locale('ar'):Locale('en');
+  Locale language=CacheHelper.getData(key: "isArabic")??false?Locale('ar'):Locale('en');
   String country=countries[CacheHelper.getData(key: "countryIdx") ?? 0];
   List<String> categoriesList = [
     "business",

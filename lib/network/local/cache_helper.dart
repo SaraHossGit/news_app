@@ -1,5 +1,14 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+/*
+  KEYS STORED IN SHAREDPREF:
+    isDark (bool) => app theme
+    countryIdx (int) => news country
+    isArabic (bool) => app language
+    userImg (String)
+    userName (String)
+ */
+
 class CacheHelper{
   static late SharedPreferences sharedPreferences;
 

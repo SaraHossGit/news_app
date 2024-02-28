@@ -18,18 +18,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
-  bool? isDark=CacheHelper.getData(key: "isDark");
   DioHelper.init();
   runApp(
     Phoenix(
-      child: MyApp(isDark: isDark,),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool? isDark;
-  MyApp({super.key, required this.isDark});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomNavCubit(),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: isDark),
+          create: (context) => ThemeCubit()..changeThemeMode(isDarkFromShared: true),
         ),
         BlocProvider(
           create: (context) => NewsCubit()..getCategoriesNews(0)..getTrendingNews(),

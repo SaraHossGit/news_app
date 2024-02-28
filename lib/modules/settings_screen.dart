@@ -27,8 +27,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void initState() {
-    userName = CacheHelper.getData(key: "userName");
-    userImgPath = CacheHelper.getData(key: "userImg");
+    userName = CacheHelper.getData(key: "userName")??"";
+    userImgPath = CacheHelper.getData(key: "userImg")??"";
     userImg = File(userImgPath!);
     isArabic = CacheHelper.getData(key: "isArabic") ?? false;
     selectedCountryIndex = CacheHelper.getData(key: "countryIdx") ?? 0;
