@@ -150,7 +150,7 @@ Widget defaultNewsTile({
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 articlesList[idx]["urlToImage"] ??
-                    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+                    "https://wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg",
                 fit: BoxFit.cover,
                 height: 80,
                 width: 80,

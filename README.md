@@ -4,7 +4,9 @@ Stay plugged in with the most powerful and intuitive news app yet!
 
 Built with the cutting-edge Flutter framework, this app delivers a seamless experience to keep you informed about the world around you. Dive headfirst into the latest headlines across various categories, all presented in a beautifully designed and user-friendly interface.
 
-///////////////////Video//////////////////
+### Demo Video: 
+
+### Screenshots:
 
 ## In this Project:
 
@@ -25,7 +27,11 @@ Built with the cutting-edge Flutter framework, this app delivers a seamless expe
 - shared_preferences: for saving user preferences such app theme, and also username and profile picture 
 - flutter_share: to enable sharing pieces of news to other applications
 - webview_flutter: to open the url of any piece of news within the app
-- flutter_localizations: to allow app localizations (ie. changing app language and direction (rtl or ltr))
+- flutter_localizations and intl packages: to allow app localizations (ie. changing app language and direction (rtl or ltr))
+- image_picker: to allow user to pick his profile pic from gallery or from camera 
+- flutter_phoenix: to re-build the app and reset all news lists in case of changing language or country 
+- sqflite: Local storage to store bookmarked pages permanently. 
+- smooth_page_indicator: for smooth navigation of the onboarding screen indicators
 
 ### API Used:
 - News Api (https://newsapi.org/)

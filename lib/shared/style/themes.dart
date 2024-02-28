@@ -38,6 +38,9 @@ darkThemeData() => ThemeData(
         indicatorColor: Colors.white,
         tabAlignment: TabAlignment.center,
       ),
+  inputDecorationTheme: const InputDecorationTheme(
+    labelStyle: TextStyle(color: Colors.black)
+  ),
   iconTheme: const IconThemeData(color: Colors.white),
   textTheme: const TextTheme(
     headlineLarge:TextStyle(color: Colors.white),
