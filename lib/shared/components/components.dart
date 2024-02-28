@@ -293,13 +293,12 @@ Widget carouselItem(newsItem) => Builder(
 /// TabBar and TabView
 Widget categoriesTabBar({
   required TabController? tabController,
-  required List<dynamic> tabItemsList,
   required NewsCubit cubit,
   required BuildContext context,
 }) =>
     SizedBox(
-      height: 40,
-      child: TabBar(
+        height: 40,
+        child: TabBar(
           onTap: (int selectedIndex) {
             if (cubit.categorizedNewsList[selectedIndex].isEmpty) {
               cubit.getCategoriesNews(selectedIndex);
@@ -307,8 +306,30 @@ Widget categoriesTabBar({
           },
           isScrollable: true,
           controller: tabController,
-          tabs: buildTabItems(tabItemsList, context)),
-    );
+          tabs: [
+            Tab(
+              text: AppLocalizations.of(context)!.business,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.entertainment,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.general,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.health,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.science,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.sports,
+            ),
+            Tab(
+              text: AppLocalizations.of(context)!.technology,
+            ),
+          ],
+        ));
 
 Widget categoriesTabView({
   required TabController? tabController,
@@ -323,33 +344,6 @@ Widget categoriesTabView({
             buildTabPages(articlesList: articlesList, numOfTabs: numOfTabs),
       ),
     );
-
-List<Widget> buildTabItems(tabItemsList, context) {
-  List<Widget> tabItems = [
-    Tab(
-      text: AppLocalizations.of(context)!.business,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.entertainment,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.general,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.health,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.science,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.sports,
-    ),
-    Tab(
-      text: AppLocalizations.of(context)!.technology,
-    ),
-  ];
-  return tabItems;
-}
 
 List<Widget> buildTabPages(
     {required List<dynamic> articlesList, required int numOfTabs}) {
